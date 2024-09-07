@@ -18,6 +18,11 @@ defmodule AvifixirTest do
     refute Avifixir.Path.is_dir(path)
   end
 
+  test "get expanded path" do
+    expected_home_path = Path.expand("~") <> "/dist"
+    assert Avifixir.Path.get_abs_path("~/dist") == expected_home_path
+  end
+
   test "replace extension" do
     assert Avifixir.Path.replace_ext("test/image.avif") == "test/image.jpg"
     refute Avifixir.Path.replace_ext("sample/abc.png") == "sample/abc.jpg"
