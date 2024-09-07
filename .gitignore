@@ -26,7 +26,7 @@ avifixir-*.tar
 /tmp/
 
 # 実行ファイル
-avifixir
+/avifixir
 
 # ElixirLS
 .elixir_ls
