@@ -12,16 +12,13 @@ defmodule Avifixir do
   """
   @spec convert_images(binary(), binary()) :: :ok
   def convert_images(path, dist_path) do
-    logger = &IO.puts("#{&1} images converted")
-
     cond do
       Avifixir.Path.is_dir(path) ->
         # Find AVIF files recursively under given `path`
         find_avif_images_under(path)
         |> has_at_least_one_element()
         |> prepare_image_info(path, dist_path)
-        |> process_list()
-        |> logger.()
+        |> process_images()
 
       Avifixir.Path.is_a_avif_image(path) ->
         IO.puts("arg is a AVIF image.")
@@ -116,22 +113,40 @@ defmodule Avifixir do
     open(file) |> format("jpg") |> save(path: dist_file)
   end
 
-  @spec process_list(list(Avifixir.ImageInfo.t())) :: number()
-  defp process_list(list)
+  defp process_images(list)
        when is_list(list) do
     total = length(list)
-    index = 1
 
-    Enum.reduce(
-      list,
-      index,
-      fn v, acc ->
-        convert_avif_to_jpg(v)
-        # Show Progress Bar
-        ProgressBar.render(acc, total)
-        acc + 1
-      end
-    )
-    |> (&(&1 - 1)).()
+    # 進捗状況を追跡する Agent を開始
+    {:ok, progress} = Agent.start_link(fn -> 0 end)
+
+    # 進捗バーを更新する関数
+    update_progress = fn ->
+      completed = Agent.get(progress, & &1)
+      ProgressBar.render(completed, total)
+    end
+
+    # 進捗バーを定期的に更新するタスクを開始
+    Task.start(fn ->
+      Stream.interval(200)
+      |> Stream.each(fn _ -> update_progress.() end)
+      |> Stream.run()
+    end)
+
+    list
+    |> Flow.from_enumerable()
+    |> Flow.map(fn item ->
+      processed_item = convert_avif_to_jpg(item)
+      # 進捗を更新
+      Agent.update(progress, &(&1 + 1))
+      processed_item
+    end)
+    |> Enum.to_list()
+
+    # 最終的な進捗状況を表示
+    update_progress.()
+
+    # Agent を停止
+    Agent.stop(progress)
   end
 end

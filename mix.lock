@@ -1,5 +1,7 @@
 %{
   "decimal": {:hex, :decimal, "2.1.1", "5611dca5d4b2c3dd497dec8f68751f1f1a54755e8ed2a966c2633cf885973ad6", [:mix], [], "hexpm", "53cfe5f497ed0e7771ae1a475575603d77425099ba5faef9394932b35020ffcc"},
+  "flow": {:hex, :flow, "1.2.4", "1dd58918287eb286656008777cb32714b5123d3855956f29aa141ebae456922d", [:mix], [{:gen_stage, "~> 1.0", [hex: :gen_stage, repo: "hexpm", optional: false]}], "hexpm", "874adde96368e71870f3510b91e35bc31652291858c86c0e75359cbdd35eb211"},
+  "gen_stage": {:hex, :gen_stage, "1.2.1", "19d8b5e9a5996d813b8245338a28246307fd8b9c99d1237de199d21efc4c76a1", [:mix], [], "hexpm", "83e8be657fa05b992ffa6ac1e3af6d57aa50aace8f691fcf696ff02f8335b001"},
   "mogrify": {:hex, :mogrify, "0.9.3", "238c782f00271dace01369ad35ae2e9dd020feee3443b9299ea5ea6bed559841", [:mix], [], "hexpm", "0189b1e1de27455f2b9ae8cf88239cefd23d38de9276eb5add7159aea51731e6"},
   "progress_bar": {:hex, :progress_bar, "3.0.0", "f54ff038c2ac540cfbb4c2bfe97c75e7116ead044f3c2b10c9f212452194b5cd", [:mix], [{:decimal, "~> 2.0", [hex: :decimal, repo: "hexpm", optional: false]}], "hexpm", "6981c2b25ab24aecc91a2dc46623658e1399c21a2ae24db986b90d678530f2b7"},
 }

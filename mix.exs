@@ -25,7 +25,8 @@ defmodule Avifixir.MixProject do
   defp deps do
     [
       {:mogrify, "~> 0.9.3"},
-      {:progress_bar, ">0.0.0"}
+      {:progress_bar, ">0.0.0"},
+      {:flow, "~> 1.0"}
     ]
   end
 
