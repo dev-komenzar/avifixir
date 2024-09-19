@@ -7,7 +7,7 @@ defmodule Avifixir.MixProject do
     [
       app: :avifixir,
       version: @version,
-      elixir: "~> 1.17",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       escript: escript()
