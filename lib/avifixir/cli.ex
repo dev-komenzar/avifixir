@@ -7,7 +7,7 @@ defmodule Avifixir.CLI do
   `avi2jpg {dir_name} -d {dist_dir_name}`
   """
 
-  @spec main([binary()]) :: :ok
+  @spec main([String.t()]) :: :ok
   def main(args) do
     IO.puts("This is my cli tool to convert `.avif` images to `.jpg`.")
 
@@ -47,10 +47,10 @@ defmodule Avifixir.CLI do
     Avifixir.convert_images(abs_dir, abs_dist_dir)
   end
 
-  @spec parse_args([binary()]) :: [binary()]
+  @spec parse_args([String.t()]) :: [String.t()]
   defp parse_args([_dir] = args), do: args
 
-  @spec parse_args([binary()]) :: none()
+  @spec parse_args([String.t()]) :: none()
   defp parse_args([_ | _]) do
     IO.puts("Too many arguments.\n")
     print_usage()

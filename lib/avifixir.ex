@@ -10,7 +10,7 @@ defmodule Avifixir do
   @doc """
   args must be Absolute paths
   """
-  @spec convert_images(binary(), binary()) :: :ok
+  @spec convert_images(String.t(), String.t()) :: :ok
   def convert_images(path, dist_path) do
     cond do
       Avifixir.Path.is_dir(path) ->
@@ -32,7 +32,7 @@ defmodule Avifixir do
     end
   end
 
-  @spec find_avif_images_under(binary()) :: [binary()]
+  @spec find_avif_images_under(String.t()) :: [String.t()]
   defp find_avif_images_under(path)
        when is_binary(path) do
     case Avifixir.Path.is_abs_path?(path) do
@@ -65,7 +65,7 @@ defmodule Avifixir do
     list
   end
 
-  @spec prepare_image_info(nonempty_list(binary()), binary(), binary()) ::
+  @spec prepare_image_info(nonempty_list(String.t()), String.t(), String.t()) ::
           list(Avifixir.ImageInfo.t())
   defp prepare_image_info(list, search_path, dist_path)
        when is_list(list) and
@@ -85,7 +85,7 @@ defmodule Avifixir do
     end)
   end
 
-  @spec prepare_image_info(binary(), binary()) :: Avifixir.ImageInfo.t()
+  @spec prepare_image_info(String.t(), String.t()) :: Avifixir.ImageInfo.t()
   defp prepare_image_info(path, dist_path)
        when is_binary(path) do
     dist_file =

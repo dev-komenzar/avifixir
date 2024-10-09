@@ -4,18 +4,18 @@ defmodule Avifixir.Path do
   パス操作のユーティリティをまとめるモジュール。
   """
 
-  @spec get_abs_path(binary()) :: binary()
+  @spec get_abs_path(String.t()) :: String.t()
   def get_abs_path(str) when is_binary(str) do
     str |> Path.expand() |> Path.absname()
   end
 
-  @spec is_dir(binary()) :: boolean()
+  @spec is_dir(String.t()) :: boolean()
   def is_dir(path) when is_binary(path) do
     # Path.dirname(path) == path
     File.dir?(path)
   end
 
-  @spec is_a_avif_image(binary()) :: boolean()
+  @spec is_a_avif_image(String.t()) :: boolean()
   def is_a_avif_image(path) when is_binary(path) do
     if Path.extname(path) == ".avif" do
       true
@@ -25,12 +25,12 @@ defmodule Avifixir.Path do
   end
 
   # 絶対パスの条件をチェック
-  @spec is_abs_path?(binary()) :: boolean()
+  @spec is_abs_path?(String.t()) :: boolean()
   def is_abs_path?(path) when is_binary(path) do
     Path.type(path) == :absolute
   end
 
-  @spec replace_ext(Path.t()) :: binary()
+  @spec replace_ext(Path.t()) :: String.t()
   def replace_ext(file_path) do
     Path.join([
       Path.dirname(file_path),
@@ -38,12 +38,12 @@ defmodule Avifixir.Path do
     ])
   end
 
-  @spec join_file_and_dir(Path.t(), Path.t()) :: binary()
+  @spec join_file_and_dir(Path.t(), Path.t()) :: String.t()
   def join_file_and_dir(file, dir) do
     Path.join(dir, file)
   end
 
-  @spec get_new_file_path(binary(), binary(), binary()) :: binary()
+  @spec get_new_file_path(String.t(), String.t(), String.t()) :: String.t()
   def get_new_file_path(path, search_dir, dist_dir) do
     # Original: /sa/mple/image.avif
     path
